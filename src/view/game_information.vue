@@ -6,7 +6,7 @@
     <a href="https://playrack.net/" target="_blank" class="playrack">
       <span style="color: rgb(18, 130, 227);">p</span><span>lay</span><span style="color: rgb(255, 108, 43);">r</span><span>ack</span>
     </a><br><br>
-    <a href="https://ero.plumz.me/" target="_blank" class="erogamescape">
+    <a href="https://153.127.88.54/~ap2/ero/toukei_kaiseki/" target="_blank" class="erogamescape">
       <h1>ErogameScape -エロゲー批評空間-</h1>
     </a><br>
     <a href="https://vndb.org/" target="_blank" class="vndb">

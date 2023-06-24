@@ -3,7 +3,7 @@
     <button>
       <router-link to="/">返回主页</router-link>
     </button><br><br>
-    <a href="https://brantacanadensis.site/" target="_blank" class="brantacanadensis">
+    <a href="https://baozhen.cc/" target="_blank" class="brantacanadensis">
       加拿大鹅抱枕研发中心
     </a><br><br>
     <a href="http://omiai-dakimakura.com/" target="_blank">
