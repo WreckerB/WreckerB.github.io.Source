@@ -68,7 +68,8 @@ export function useRouterPush(inSetup = true) {
   function toLoginRedirect() {
     const { query } = route.value;
     if (query?.redirect) {
-      routerPush(query.redirect as string);
+      // routerPush(query.redirect as string);
+      routerPush({ name: routeName('root') });
     } else {
       toHome();
     }
