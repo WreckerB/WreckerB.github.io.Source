@@ -1,4 +1,4 @@
-const exception: AuthRoute.Route = {
+const exception = {
   name: 'exception',
   path: '/exception',
   component: 'basic',
@@ -41,6 +41,7 @@ const exception: AuthRoute.Route = {
     i18nTitle: 'routes.exception._value',
     title: '异常页',
     icon: 'ant-design:exception-outlined',
+    hide: true,
     order: 7
   }
 };

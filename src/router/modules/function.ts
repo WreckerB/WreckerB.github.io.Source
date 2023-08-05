@@ -1,4 +1,4 @@
-const functionRoute: AuthRoute.Route = {
+const functionRoute = {
   name: 'function',
   path: '/function',
   component: 'basic',
@@ -44,6 +44,7 @@ const functionRoute: AuthRoute.Route = {
     title: '功能',
     i18nTitle: 'routes.function._value',
     icon: 'icon-park-outline:all-application',
+    hide: true,
     order: 6
   }
 };

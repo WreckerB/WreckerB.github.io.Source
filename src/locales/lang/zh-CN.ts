@@ -1,4 +1,4 @@
-const locale: I18nType.Schema = {
+const locale = {
   system: {
     title: 'Soybean管理系统'
   },
@@ -87,7 +87,17 @@ const locale: I18nType.Schema = {
       route: '路由管理',
       user: '用户管理'
     },
-    about: '关于'
+    about: '关于',
+    erogame: {
+      _value: '游戏本体',
+      shop: '通贩站点',
+      tool: '工具站点',
+      information: '资料站点'
+    },
+    pillow: {
+      _value: '抱枕',
+      information: '资料站点'
+    }
   },
   layout: {
     settingDrawer: {

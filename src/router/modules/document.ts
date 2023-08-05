@@ -1,4 +1,4 @@
-const document: AuthRoute.Route = {
+const document = {
   name: 'document',
   path: '/document',
   component: 'basic',
@@ -63,6 +63,7 @@ const document: AuthRoute.Route = {
     title: '文档',
     i18nTitle: 'routes.document._value',
     icon: 'mdi:file-document-multiple-outline',
+    hide: true,
     order: 2
   }
 };

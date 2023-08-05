@@ -1,4 +1,4 @@
-const dashboard: AuthRoute.Route = {
+const dashboard = {
   name: 'dashboard',
   path: '/dashboard',
   component: 'basic',
@@ -29,6 +29,7 @@ const dashboard: AuthRoute.Route = {
   meta: {
     title: '仪表盘',
     icon: 'mdi:monitor-dashboard',
+    hide: true,
     order: 1,
     i18nTitle: 'routes.dashboard._value'
   }

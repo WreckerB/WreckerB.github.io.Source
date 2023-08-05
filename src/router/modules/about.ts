@@ -1,4 +1,4 @@
-const about: AuthRoute.Route = {
+const about = {
   name: 'about',
   path: '/about',
   component: 'self',

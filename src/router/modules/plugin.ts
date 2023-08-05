@@ -1,4 +1,4 @@
-const plugin: AuthRoute.Route = {
+const plugin = {
   name: 'plugin',
   path: '/plugin',
   component: 'basic',
@@ -142,6 +142,7 @@ const plugin: AuthRoute.Route = {
     title: '插件示例',
     i18nTitle: 'routes.plugin._value',
     icon: 'clarity:plugin-line',
+    hide: true,
     order: 4
   }
 };

@@ -1,4 +1,4 @@
-const authDemo: AuthRoute.Route = {
+const authDemo = {
   name: 'auth-demo',
   path: '/auth-demo',
   component: 'basic',
@@ -31,6 +31,7 @@ const authDemo: AuthRoute.Route = {
     title: '权限示例',
     i18nTitle: 'routes.auth-demo._value',
     icon: 'ic:baseline-security',
+    hide: true,
     order: 5
   }
 };

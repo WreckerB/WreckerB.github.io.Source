@@ -1,4 +1,4 @@
-const management: AuthRoute.Route = {
+const management = {
   name: 'management',
   path: '/management',
   component: 'basic',
@@ -52,6 +52,7 @@ const management: AuthRoute.Route = {
     title: '系统管理',
     i18nTitle: 'routes.management._value',
     icon: 'carbon:cloud-service-management',
+    hide: true,
     order: 9
   }
 };

@@ -1,4 +1,4 @@
-const component: AuthRoute.Route = {
+const component = {
   name: 'component',
   path: '/component',
   component: 'basic',
@@ -41,6 +41,7 @@ const component: AuthRoute.Route = {
     title: '组件示例',
     i18nTitle: 'routes.component._value',
     icon: 'cib:app-store',
+    hide: true,
     order: 3
   }
 };

@@ -1,4 +1,4 @@
-const multiMenu: AuthRoute.Route = {
+const multiMenu = {
   name: 'multi-menu',
   path: '/multi-menu',
   component: 'basic',
@@ -54,6 +54,7 @@ const multiMenu: AuthRoute.Route = {
     title: '多级菜单',
     i18nTitle: 'routes.multi-menu._value',
     icon: 'carbon:menu',
+    hide: true,
     order: 8
   }
 };
