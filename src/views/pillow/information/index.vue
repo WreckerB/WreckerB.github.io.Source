@@ -4,7 +4,7 @@
     <br />
     <br />
     <a href="http://omiai-dakimakura.com/" target="_blank">
-      <img alt="おみあい！ 抱き枕カバー" src="/src/assets/png-icon/omiai-dakimakura-logo.png" width="240" height="60" />
+      <img alt="おみあい！ 抱き枕カバー" src="/src/assets/png/omiai-dakimakura-logo.png" width="240" height="60" />
     </a>
     <br />
     <n-input-group>

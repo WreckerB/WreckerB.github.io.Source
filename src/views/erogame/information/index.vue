@@ -16,12 +16,12 @@
     <br />
     <br />
     <a href="http://www.getchu.com/pc/" target="_blank">
-      <img alt="Getchu" src="/src/assets/gif-icon/getchu-logo.gif" width="247" height="60" />
+      <img alt="Getchu" src="/src/assets/gif/getchu-logo.gif" width="247" height="60" />
     </a>
     <br />
     <br />
     <a href="http://egono.com/" target="_blank">
-      <img alt="Eroge RSS Checker" src="/src/assets/gif-icon/egono-logo.gif" width="294" height="40.5" />
+      <img alt="Eroge RSS Checker" src="/src/assets/gif/egono-logo.gif" width="294" height="40.5" />
     </a>
     <br />
     <br />

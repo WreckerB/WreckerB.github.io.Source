@@ -1,7 +1,7 @@
 <template>
   <div>
     <a href="https://buyee.jp/" target="_blank">
-      <img alt="Buyee" src="/src/assets/png-icon/buyee-logo.png" width="125" height="36" />
+      <img alt="Buyee" src="/src/assets/png/buyee-logo.png" width="125" height="36" />
     </a>
     <br />
     <n-input-group>
@@ -11,7 +11,7 @@
     <br />
     <br />
     <a href="https://erocate.com" target="_blank">
-      <img alt="erocate.com" src="/src/assets/png-icon/erocate-logo.png" width="176" height="21" />
+      <img alt="erocate.com" src="/src/assets/png/erocate-logo.png" width="176" height="21" />
     </a>
     <br />
     <br />
