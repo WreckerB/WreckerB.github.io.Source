@@ -3,6 +3,7 @@
  * @param str - 待转化的字符串
  * @link https://2ndart.hatenablog.com/entry/2022/08/16/141341
  * @link https://www.junoe.jp/downloads/itoh/enc_js.shtml
+ * @returns 返回EUC-JP格式的日文编码
  */
 export function EscapeEUCJP(str: string) {
   // eslint-disable-next-line no-new-func

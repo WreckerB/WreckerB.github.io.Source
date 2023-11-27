@@ -14,13 +14,13 @@
             <div class="flex flex-items-end h-56px">
               <n-input-group>
                 <n-select
-                  class="w-72px"
+                  class="w-80px"
                   :default-value="item.options[0].label"
                   :options="item.options"
                   @click="setIndex(item.id)"
                   @update:value="setType"
                 />
-                <n-input v-model:value="item.value" :style="{ width: 'calc(100% - 132px)' }" clearable />
+                <n-input v-model:value="item.value" :style="{ width: 'calc(100% - 140px)' }" clearable />
                 <n-button class="w-60px" type="primary" ghost @click="search(item.id)">搜索</n-button>
               </n-input-group>
             </div>
@@ -39,9 +39,9 @@ const currentIndex = ref();
 const cardData = ref([
   {
     id: 'surugaya',
-    cover: '/src/assets/svg-icon/surugaya-logo.svg',
+    cover: new URL('/src/assets/svg-icon/surugaya-logo.svg', import.meta.url).href,
     title: '駿河屋',
-    icon: '/src/assets/png/surugaya-icon.png',
+    icon: new URL('/src/assets/png/surugaya-icon.png', import.meta.url).href,
     type: 'global',
     options: [
       {
@@ -61,9 +61,9 @@ const cardData = ref([
   },
   {
     id: 'auctions',
-    cover: '/src/assets/png/auctions-logo.png',
+    cover: new URL('/src/assets/png/auctions-logo.png', import.meta.url).href,
     title: 'ヤフオク',
-    icon: '/src/assets/ico/auctions-icon.ico',
+    icon: new URL('/src/assets/ico/auctions-icon.ico', import.meta.url).href,
     type: 'global',
     options: [
       {
@@ -79,9 +79,9 @@ const cardData = ref([
   },
   {
     id: 'amazon',
-    cover: '/src/assets/svg-icon/amazon-logo.svg',
+    cover: new URL('/src/assets/svg-icon/amazon-logo.svg', import.meta.url).href,
     title: 'Amazon',
-    icon: '/src/assets/ico/amazon-icon.ico',
+    icon: new URL('/src/assets/ico/amazon-icon.ico', import.meta.url).href,
     type: 'global',
     options: [
       {
@@ -97,9 +97,9 @@ const cardData = ref([
   },
   {
     id: 'mandarake',
-    cover: '/src/assets/png/mandarake-logo.png',
+    cover: new URL('/src/assets/png/mandarake-logo.png', import.meta.url).href,
     title: 'まんだらけ',
-    icon: '/src/assets/ico/mandarake-icon.ico',
+    icon: new URL('/src/assets/ico/mandarake-icon.ico', import.meta.url).href,
     type: 'global',
     options: [
       {
@@ -119,9 +119,9 @@ const cardData = ref([
   },
   {
     id: 'lashinbang',
-    cover: '/src/assets/png/lashinbang-logo.png',
+    cover: new URL('/src/assets/png/lashinbang-logo.png', import.meta.url).href,
     title: 'らしんばん',
-    icon: '/src/assets/ico/lashinbang-icon.ico',
+    icon: new URL('/src/assets/ico/lashinbang-icon.ico', import.meta.url).href,
     type: 'global',
     options: [
       {
@@ -137,9 +137,9 @@ const cardData = ref([
   },
   {
     id: 'chuko-tsuhan',
-    cover: '/src/assets/gif/chuko-tsuhan-logo.gif',
+    cover: new URL('/src/assets/gif/chuko-tsuhan-logo.gif', import.meta.url).href,
     title: '秋葉原トレーダー',
-    icon: '/src/assets/ico/chuko-tsuhan-icon.ico',
+    icon: new URL('/src/assets/ico/chuko-tsuhan-icon.ico', import.meta.url).href,
     type: 'global',
     options: [
       {
@@ -151,9 +151,9 @@ const cardData = ref([
   },
   {
     id: 'hgame1',
-    cover: '/src/assets/gif/hgame1-logo.gif',
+    cover: new URL('/src/assets/gif/hgame1-logo.gif', import.meta.url).href,
     title: 'PCショップうの屋',
-    icon: '/src/assets/ico/hgame1-icon.ico',
+    icon: new URL('/src/assets/ico/hgame1-icon.ico', import.meta.url).href,
     type: 'global',
     options: [
       {
@@ -165,9 +165,9 @@ const cardData = ref([
   },
   {
     id: 'mercari',
-    cover: '/src/assets/svg-icon/mercari-logo.svg',
+    cover: new URL('/src/assets/svg-icon/mercari-logo.svg', import.meta.url).href,
     title: 'メルカリ',
-    icon: '/src/assets/ico/mercari-icon.ico',
+    icon: new URL('/src/assets/ico/mercari-icon.ico', import.meta.url).href,
     type: 'global',
     options: [
       {
