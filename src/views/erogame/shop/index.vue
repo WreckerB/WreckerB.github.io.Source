@@ -20,8 +20,12 @@
                   @click="setIndex(item.id)"
                   @update:value="setType"
                 />
-                <n-input v-model:value="item.value" :style="{ width: 'calc(100% - 140px)' }" clearable />
-                <n-button class="w-60px" type="primary" ghost @click="search(item.id)">搜索</n-button>
+                <n-input v-model:value="item.value" :style="{ width: 'calc(100% - 130px)' }" clearable />
+                <n-button class="w-50px border-rd-lg" type="primary" @click="search(item.id)">
+                  <template #icon>
+                    <svg-icon icon="material-symbols:search-rounded" />
+                  </template>
+                </n-button>
               </n-input-group>
             </div>
           </div>
@@ -118,19 +122,15 @@ const cardData = ref([
     value: ''
   },
   {
-    id: 'lashinbang',
-    cover: new URL('/src/assets/png/lashinbang-logo.png', import.meta.url).href,
-    title: 'らしんばん',
-    icon: new URL('/src/assets/ico/lashinbang-icon.ico', import.meta.url).href,
+    id: 'hgame1',
+    cover: new URL('/src/assets/gif/hgame1-logo.gif', import.meta.url).href,
+    title: 'PCショップうの屋',
+    icon: new URL('/src/assets/ico/hgame1-icon.ico', import.meta.url).href,
     type: 'global',
     options: [
       {
         label: '全局',
         value: 'global'
-      },
-      {
-        label: '本体',
-        value: 'game'
       }
     ],
     value: ''
@@ -150,15 +150,19 @@ const cardData = ref([
     value: ''
   },
   {
-    id: 'hgame1',
-    cover: new URL('/src/assets/gif/hgame1-logo.gif', import.meta.url).href,
-    title: 'PCショップうの屋',
-    icon: new URL('/src/assets/ico/hgame1-icon.ico', import.meta.url).href,
+    id: 'lashinbang',
+    cover: new URL('/src/assets/png/lashinbang-logo.png', import.meta.url).href,
+    title: 'らしんばん',
+    icon: new URL('/src/assets/ico/lashinbang-icon.ico', import.meta.url).href,
     type: 'global',
     options: [
       {
         label: '全局',
         value: 'global'
+      },
+      {
+        label: '本体',
+        value: 'game'
       }
     ],
     value: ''
@@ -193,14 +197,14 @@ const jump = (e: string) => {
     case 'mandarake':
       window.open('https://order.mandarake.co.jp/order');
       break;
-    case 'lashinbang':
-      window.open('https://shop.lashinbang.com');
+    case 'hgame1':
+      window.open('https://www.hgame1.com/top.html');
       break;
     case 'chuko-tsuhan':
       window.open('http://www.chuko-tsuhan.com');
       break;
-    case 'hgame1':
-      window.open('https://www.hgame1.com/top.html');
+    case 'lashinbang':
+      window.open('https://shop.lashinbang.com');
       break;
     case 'mercari':
       window.open('https://jp.mercari.com');
@@ -260,11 +264,9 @@ const search = (e: string) => {
           window.open(`https://order.mandarake.co.jp/order/listPage/list?categoryCode=03&keyword=${value}`);
         }
         break;
-      case 'lashinbang':
+      case 'hgame1':
         if (type === 'global') {
-          window.open(`https://shop.lashinbang.com/products/list?keyword=${value}&stock=2`);
-        } else if (type === 'game') {
-          window.open(`https://shop.lashinbang.com/products/list?cat=ゲーム&keyword=${value}&subcat=PCゲーム&stock=2`);
+          window.open(`https://www.hgame1.com/msearch/msearch.cgi?query=${EscapeEUCJP(value)}`);
         }
         break;
       case 'chuko-tsuhan':
@@ -272,9 +274,11 @@ const search = (e: string) => {
           window.open(`http://www.chuko-tsuhan.com/shop/shopbrand.html?search=${EscapeEUCJP(value)}`);
         }
         break;
-      case 'hgame1':
+      case 'lashinbang':
         if (type === 'global') {
-          window.open(`https://www.hgame1.com/msearch/msearch.cgi?query=${EscapeEUCJP(value)}`);
+          window.open(`https://shop.lashinbang.com/products/list?keyword=${value}&stock=2`);
+        } else if (type === 'game') {
+          window.open(`https://shop.lashinbang.com/products/list?cat=ゲーム&keyword=${value}&subcat=PCゲーム&stock=2`);
         }
         break;
       case 'mercari':
