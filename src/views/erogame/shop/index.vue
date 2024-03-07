@@ -266,7 +266,7 @@ const search = (e: string) => {
         break;
       case 'hgame1':
         if (type === 'global') {
-          window.open(`https://www.hgame1.com/msearch/msearch.cgi?query=${EscapeEUCJP(value)}`);
+          window.open(`https://www.hgame1.com/msearch/msearch.cgi?query=${value}`);
         }
         break;
       case 'chuko-tsuhan':
