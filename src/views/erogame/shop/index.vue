@@ -236,7 +236,7 @@ const search = (e: string) => {
         if (type === 'global') {
           window.open(`https://www.suruga-ya.jp/search?search_word=${value}&inStock=On`);
         } else if (type === 'game') {
-          window.open(`https://www.suruga-ya.jp/search?category=652&search_word=${value}&inStock=On`);
+          window.open(`https://www.suruga-ya.jp/search?category=65204&search_word=${value}&inStock=On`);
         } else if (type === 'doujin') {
           window.open(`https://www.suruga-ya.jp/search?category=1101&search_word=${value}&inStock=On`);
         }
