@@ -62,13 +62,25 @@ export const generatedRoutes: GeneratedRoute[] = [
     },
     children: [
       {
+        name: 'erogame_information',
+        path: '/erogame/information',
+        component: 'view.erogame_information',
+        meta: {
+          title: 'erogame_information',
+          i18nKey: 'route.erogame_information',
+          icon: 'material-symbols:library-books-outline',
+          order: 14
+        }
+      },
+      {
         name: 'erogame_shop',
         path: '/erogame/shop',
         component: 'view.erogame_shop',
         meta: {
           title: 'erogame_shop',
           i18nKey: 'route.erogame_shop',
-          icon: 'material-symbols:shopping-cart-outline-rounded'
+          icon: 'material-symbols:shopping-cart-outline-rounded',
+          order: 12
         }
       },
       {
@@ -78,17 +90,8 @@ export const generatedRoutes: GeneratedRoute[] = [
         meta: {
           title: 'erogame_tool',
           i18nKey: 'route.erogame_tool',
-          icon: 'mdi:tools'
-        }
-      },
-      {
-        name: 'erogame_information',
-        path: '/erogame/information',
-        component: 'view.erogame_information',
-        meta: {
-          title: 'erogame_information',
-          i18nKey: 'route.erogame_information',
-          icon: 'material-symbols:library-books-outline'
+          icon: 'mdi:tools',
+          order: 13
         }
       }
     ]
@@ -385,7 +388,7 @@ export const generatedRoutes: GeneratedRoute[] = [
       title: 'pillow',
       i18nKey: 'route.pillow',
       icon: 'iconoir:pillow',
-      order: 12
+      order: 15
     },
     children: [
       {
