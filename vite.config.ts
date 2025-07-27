@@ -16,28 +16,23 @@ export default defineConfig({
       imports: [
         'vue',
         {
-          'naive-ui': [
-            'useDialog',
-            'useMessage',
-            'useNotification',
-            'useLoadingBar'
-          ]
-        }
-      ]
+          'naive-ui': ['useDialog', 'useMessage', 'useNotification', 'useLoadingBar'],
+        },
+      ],
     }),
     Components({
-      resolvers: [NaiveUiResolver()]
+      resolvers: [NaiveUiResolver()],
     }),
     vueDevTools(),
     UnoCSS(),
   ],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
   server: {
     host: '0.0.0.0',
     port: 8080,
-  }
+  },
 })
