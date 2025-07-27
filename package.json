@@ -13,6 +13,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@vicons/fa": "^0.13.0",
     "@vicons/material": "^0.13.0",
     "naive-ui": "^2.42.0",
     "unocss": "^66.3.3",

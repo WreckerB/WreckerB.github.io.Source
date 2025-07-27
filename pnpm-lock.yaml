@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@vicons/fa':
+        specifier: ^0.13.0
+        version: 0.13.0
       '@vicons/material':
         specifier: ^0.13.0
         version: 0.13.0
@@ -795,6 +798,9 @@ packages:
     resolution: {integrity: sha512-uu3smeEW6q36ri6vydRx2GiTGF5O/J80Fr4GLmLiwfpt2YnPHraO7XHVR5/mwG2Oz5Kov0uGvxVsdgxZABKRgw==}
     peerDependencies:
       vite: ^2.9.0 || ^3.0.0-0 || ^4.0.0 || ^5.0.0-0 || ^6.0.0-0 || ^7.0.0-0
+
+  '@vicons/fa@0.13.0':
+    resolution: {integrity: sha512-BFcDewcT78fSn4Y/fOgqlswbLUEW3+qJK2iJiNtgmkMzadBVpDXhNyVKsYM3V2uKPvDUrZT0JCWDWVRCiBXJZA==}
 
   '@vicons/material@0.13.0':
     resolution: {integrity: sha512-lKVxFNprM+CaBkUH3gt6VjIeiMsKQl2zARQMwTCZruQl2vRHzyeZiKeCflWS99CEfv2JzX/6y697smxlzyxcVw==}
@@ -2746,6 +2752,8 @@ snapshots:
       vite: 7.0.6(@types/node@22.16.5)(jiti@2.5.1)
     transitivePeerDependencies:
       - vue
+
+  '@vicons/fa@0.13.0': {}
 
   '@vicons/material@0.13.0': {}
 
