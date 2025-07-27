@@ -6,6 +6,7 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 import AutoImport from 'unplugin-auto-import/vite'
 import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
 import Components from 'unplugin-vue-components/vite'
+import UnoCSS from 'unocss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -28,6 +29,7 @@ export default defineConfig({
       resolvers: [NaiveUiResolver()]
     }),
     vueDevTools(),
+    UnoCSS(),
   ],
   resolve: {
     alias: {
