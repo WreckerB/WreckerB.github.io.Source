@@ -1,7 +1,7 @@
 name: Deploy to GitHub Pages
 
-# 源码仓库：WreckerB/WreckerB.github.io.Source
-# 构建产物推送到：WreckerB/WreckerB.github.io（该仓库需设置为「Deploy from a branch」→ main → /）
+# 源码仓库：WreckerB/WreckerB.github.io.Source（main 分支）
+# 产物仓库：WreckerB/WreckerB.github.io（master 分支 → 根目录 /）
 # 包管理器：pnpm（版本由 package.json 的 packageManager 字段锁定）
 
 on:
@@ -15,6 +15,11 @@ permissions:
 concurrency:
   group: pages-deploy
   cancel-in-progress: true
+
+env:
+  # 产物仓库的分支名。注意该仓库默认分支是 master，不是 main
+  PAGES_BRANCH: master
+  PAGES_REPO: WreckerB/WreckerB.github.io
 
 jobs:
   build-and-deploy:
@@ -47,28 +52,42 @@ jobs:
           # 站点部署在用户/组织根路径 wreckerb.github.io，无需子路径前缀
           NUXT_APP_BASE_URL: /
 
+      # 提前把「令牌缺失」变成一条明确的报错，避免后面 checkout 只报 git exit code 1
+      - name: Check deploy token
+        env:
+          TOKEN: ${{ secrets.PAGES_DEPLOY_TOKEN }}
+        run: |
+          if [ -z "$TOKEN" ]; then
+            echo "::error::缺少 Secrets.PAGES_DEPLOY_TOKEN。请到源码仓库 Settings → Secrets and variables → Actions 添加，值为对 ${PAGES_REPO} 有 Contents: Read and write 权限的 PAT。"
+            exit 1
+          fi
+
       - name: Checkout pages repository
         uses: actions/checkout@v4
         with:
-          repository: WreckerB/WreckerB.github.io
-          ref: main
+          repository: ${{ env.PAGES_REPO }}
+          ref: ${{ env.PAGES_BRANCH }}
           token: ${{ secrets.PAGES_DEPLOY_TOKEN }}
           path: .pages
 
       - name: Sync build output
         run: |
           cd .pages
-          # 清空旧产物，保留 .git 与仓库自身配置
-          find . -mindepth 1 -maxdepth 1 ! -name '.git' ! -name '.github' -exec rm -rf {} +
+          # 清空旧产物；保留 .git、.github 与仓库说明文件
+          find . -mindepth 1 -maxdepth 1 \
+            ! -name '.git' ! -name '.github' ! -name 'README.md' \
+            -exec rm -rf {} +
           cp -r ../.output/public/. .
+
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -A
+
           if git diff --staged --quiet; then
             echo 'no changes to deploy'
           else
             git commit -m "deploy: ${GITHUB_SHA::8}"
-            git push
+            git push origin "HEAD:${PAGES_BRANCH}"
           fi
 
       - name: Upload build artifact
