@@ -3,7 +3,7 @@
   "type": "module",
   "private": true,
   "version": "1.0.0",
-  "description": "WreckerB — 面向 Galgame 玩家的轻量导航站",
+  "description": "WreckerB — 轻量导航个人工具站",
   "packageManager": "pnpm@10.13.1",
   "scripts": {
     "dev": "nuxt dev",

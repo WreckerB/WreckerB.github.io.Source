@@ -12,7 +12,7 @@ const navItems = [
   <header class="site-header">
     <div class="container header-inner">
       <NuxtLink :to="localePath('/')" class="brand">
-        <img src="/logo.svg" alt="" class="brand-logo" width="28" height="28" />
+        <img src="/favicon.svg" alt="" class="brand-logo" width="28" height="28" />
         <span class="brand-name">{{ t('site.title') }}</span>
         <span class="brand-tagline">{{ t('site.tagline') }}</span>
       </NuxtLink>
@@ -31,8 +31,7 @@ const navItems = [
       </nav>
 
       <div class="header-actions">
-        <LangToggle />
-        <ThemeToggle />
+        <SettingsMenu />
       </div>
     </div>
   </header>

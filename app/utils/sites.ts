@@ -177,7 +177,7 @@ export const toolSites: Site[] = [
     descKey: 'sites.buyee.desc',
     search: {
       options: [{ value: 'global', labelKey: 'scopes.global' }],
-      build: kw => `https://buyee.jp/item/search/query/${enc(kw)}/category/2084006448?lang=ja`
+      build: kw => `https://buyee.jp/item/crosssearch/query/${enc(kw)}`
     }
   },
   {
@@ -253,10 +253,13 @@ export const pillowSites: Site[] = [
   {
     id: 'baozhen',
     name: '加拿大鹅抱枕研发中心',
-    url: 'https://baozhen.cc/',
+    url: 'https://baozhen.jp/',
     category: 'info',
     descKey: 'sites.baozhen.desc',
-    useFavicon: false
+    search: {
+      options: [{ value: 'global', labelKey: 'scopes.global' }],
+      build: kw => `https://www.baozhen.jp/search/results?keyword=${enc(kw)}`
+    }
   },
   {
     id: 'omiai',
@@ -268,12 +271,5 @@ export const pillowSites: Site[] = [
       options: [{ value: 'global', labelKey: 'scopes.global' }],
       build: kw => `http://omiai-dakimakura.com/?s=${enc(kw)}`
     }
-  },
-  {
-    id: 'fosblog',
-    name: '×Phos/抱き枕×',
-    url: 'http://fosblog.blog94.fc2.com/',
-    category: 'info',
-    descKey: 'sites.fosblog.desc'
   }
 ]

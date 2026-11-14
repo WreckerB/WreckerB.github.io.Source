@@ -63,8 +63,7 @@ Nuxt 4（SSR / 预渲染）、Vue 3、TypeScript、原生 CSS。**运行时第�
 │   ├── components/
 │   │   ├── AppHeader.vue        # 顶部导航栏
 │   │   ├── AppFooter.vue
-│   │   ├── LangToggle.vue       # 语言切换
-│   │   ├── ThemeToggle.vue      # 明暗切换
+│   │   ├── SettingsMenu.vue     # 设置面板：语言与明暗，保存到本地缓存
 │   │   ├── SiteCard.vue         # 站点卡片：logo + 标题 + 输入框
 │   │   └── SiteSection.vue      # 分组标题 + 卡片网格
 │   ├── composables/
@@ -78,7 +77,7 @@ Nuxt 4（SSR / 预渲染）、Vue 3、TypeScript、原生 CSS。**运行时第�
 │   │       └── en-US.json       # ★ 英文文案
 │   └── assets/css/main.css      # 全局样式与设计令牌
 ├── public/
-│   ├── logo.svg / favicon.svg   # 本站品牌图标
+│   ├── favicon.svg              # 全站图标（Nuxt 官方默认图标）
 │   └── .nojekyll                # 必需：避免 Jekyll 忽略 _nuxt 目录
 └── .github/workflows/deploy.yml # 自动构建并推送产物
 ```
@@ -168,7 +167,7 @@ NUXT_APP_BASE_URL=/WreckerB/ pnpm generate
 
 ### 主题
 
-颜色一律走 `app/assets/css/main.css` 顶部的 CSS 变量，明暗两套定义在 `:root` 和 `html.dark` 下，新增样式不要写死颜色。
+颜色一律走 `app/assets/css/main.css` 顶部的 CSS 变量，明暗两套定义在 `:root` 和 `html.dark` 下，新增样式不要写死颜色。语言与明暗偏好由顶栏设置面板管理，点选即时生效并写入 `localStorage`，再次访问会自动读取；明暗支持「自动」跟随系统。
 
 ## 站点图标说明
 

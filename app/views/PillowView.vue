@@ -13,6 +13,6 @@ useHead(() => ({ title: `${t('pages.pillow.title')} · ${t('site.title')}` }))
       <p class="page-subtitle">{{ t('pages.pillow.subtitle') }}</p>
     </div>
 
-    <SiteSection title-key="sections.info.title" desc-key="sections.info.desc" :sites="pillowSites" />
+    <SiteSection anchor-id="info" title-key="sections.info.title" desc-key="sections.info.desc" :sites="pillowSites" />
   </div>
 </template>

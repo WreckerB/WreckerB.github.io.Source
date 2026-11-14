@@ -51,6 +51,29 @@ export function readLangParam(raw: unknown): LangParam | null {
   return value === 'zh' || value === 'en' ? value : null
 }
 
+const LANG_STORAGE_KEY = 'wrecker-lang'
+
+/** 读取本地缓存的语言偏好 */
+export function readSavedLang(): LangParam | null {
+  if (!import.meta.client) return null
+  try {
+    const value = localStorage.getItem(LANG_STORAGE_KEY)
+    return value === 'zh' || value === 'en' ? value : null
+  } catch {
+    return null
+  }
+}
+
+/** 保存语言偏好到本地缓存 */
+export function saveLangPref(param: LangParam) {
+  if (!import.meta.client) return
+  try {
+    localStorage.setItem(LANG_STORAGE_KEY, param)
+  } catch {
+    /* 本地缓存不可用时仅当前会话生效 */
+  }
+}
+
 export function useI18n() {
   const route = useRoute()
   const messages = messagesState()

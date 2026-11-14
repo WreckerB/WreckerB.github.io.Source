@@ -283,18 +283,66 @@ select {
   height: 16px;
 }
 
-/* 主题图标随明暗切换，避免图标闪烁 */
-.icon-sun,
-.icon-moon {
-  display: none;
+/* ---------- 设置面板 ---------- */
+.settings {
+  position: relative;
 }
 
-html:not(.dark) .icon-sun {
-  display: block;
+.settings-panel {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 60;
+  width: 250px;
+  padding: 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
 }
 
-html.dark .icon-moon {
+.settings-group + .settings-group {
+  margin-top: 14px;
+}
+
+.settings-label {
   display: block;
+  margin-bottom: 7px;
+  color: var(--muted);
+  font-size: 12.5px;
+}
+
+.settings-options {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+}
+
+.settings-options-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.settings-option {
+  height: 32px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-2);
+  color: var(--text-2);
+  font-size: 13px;
+  cursor: pointer;
+  transition: border-color 0.18s var(--ease), color 0.18s var(--ease), background-color 0.18s var(--ease);
+}
+
+.settings-option:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.settings-option.is-selected {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--primary-contrast);
+  font-weight: 600;
 }
 
 /* ---------- 卡片 ---------- */
@@ -333,6 +381,33 @@ html.dark .icon-moon {
   font-variant-numeric: tabular-nums;
 }
 
+/* ---------- 区块锚点 ---------- */
+.section {
+  scroll-margin-top: calc(var(--header-h) + 16px);
+}
+
+.anchor-link {
+  margin-left: 6px;
+  color: var(--muted);
+  font-weight: 500;
+  opacity: 0;
+  transition: opacity 0.15s var(--ease), color 0.15s var(--ease);
+}
+
+.section-title:hover .anchor-link,
+.anchor-link:hover,
+.anchor-link:focus-visible {
+  opacity: 1;
+  color: var(--primary);
+}
+
+/* 触屏设备没有 hover，锚点常驻淡显 */
+@media (hover: none) {
+  .anchor-link {
+    opacity: 0.45;
+  }
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -341,6 +416,7 @@ html.dark .icon-moon {
 
 /* ---------- 站点卡片 ---------- */
 .site-card {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -350,6 +426,11 @@ html.dark .icon-moon {
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
   transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease), border-color 0.2s var(--ease);
+}
+
+/* 下拉展开时抬升卡片，避免被后续卡片遮挡 */
+.site-card:focus-within {
+  z-index: 5;
 }
 
 .site-card:hover {
@@ -364,15 +445,23 @@ html.dark .icon-moon {
   gap: 13px;
 }
 
-/* 在线 favicon：统一白底圆角方块，缩放到 44px 仍能看清 */
+/* 图标可点击，跳转站点主站 */
+.site-icon-link {
+  flex-shrink: 0;
+  display: inline-flex;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+/* 在线 favicon：统一白底圆角方块，缩放到 48px 仍能看清 */
 .site-favicon {
   flex-shrink: 0;
   box-sizing: border-box;
-  width: 44px;
-  height: 44px;
+  width: 48px;
+  height: 48px;
   padding: 5px;
   border: 1px solid var(--border);
-  border-radius: 11px;
+  border-radius: 12px;
   background: #ffffff;
   object-fit: contain;
 }
@@ -384,13 +473,13 @@ html.dark .icon-moon {
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  width: 44px;
-  height: 44px;
+  width: 48px;
+  height: 48px;
   padding: 0;
-  border-radius: 11px;
+  border-radius: 12px;
   background: var(--primary-soft);
   border: 1px solid var(--border);
-  font-size: 18px;
+  font-size: 19px;
   font-weight: 700;
   letter-spacing: -0.01em;
   color: var(--primary);
@@ -410,7 +499,7 @@ html.dark .icon-moon {
 .site-desc {
   margin-top: 3px;
   color: var(--muted);
-  font-size: 13px;
+  font-size: 12.5px;
   line-height: 1.55;
 }
 
@@ -420,20 +509,85 @@ html.dark .icon-moon {
   margin-top: auto;
 }
 
-.site-search select {
+/* 检索范围下拉：自绘菜单，保持与卡片一致的视觉 */
+.scope {
+  position: relative;
   flex: 0 0 auto;
+}
+
+.scope-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
   height: 36px;
-  padding: 0 26px 0 10px;
+  padding: 0 10px;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   background: var(--surface-2);
+  color: var(--text-2);
   font-size: 13px;
+  white-space: nowrap;
   cursor: pointer;
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237c869c' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 6px center;
-  background-size: 14px;
+  transition: border-color 0.18s var(--ease), color 0.18s var(--ease), background-color 0.18s var(--ease);
+}
+
+.scope-trigger:hover,
+.scope-trigger[aria-expanded='true'] {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: var(--primary-soft);
+}
+
+.scope-trigger svg {
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+  transition: transform 0.18s var(--ease);
+}
+
+.scope-trigger[aria-expanded='true'] svg {
+  transform: rotate(180deg);
+}
+
+.scope-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 20;
+  min-width: 100%;
+  margin: 0;
+  padding: 4px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-md);
+}
+
+.scope-option {
+  display: block;
+  width: 100%;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+  background: none;
+  color: var(--text-2);
+  font-size: 13px;
+  text-align: left;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.15s var(--ease), color 0.15s var(--ease);
+}
+
+.scope-option:hover {
+  background: var(--primary-soft);
+  color: var(--text);
+}
+
+.scope-option.is-active {
+  background: var(--primary-soft);
+  color: var(--primary);
+  font-weight: 600;
 }
 
 .site-search input {
@@ -536,7 +690,6 @@ html.dark .icon-moon {
 
 .hero-lead {
   margin-top: 10px;
-  max-width: 62ch;
   color: var(--text-2);
   font-size: 15px;
 }
@@ -593,19 +746,6 @@ html.dark .icon-moon {
 
 .about-card {
   padding: 22px;
-  margin-bottom: 16px;
-}
-
-.about-card-title {
-  font-size: 16.5px;
-  font-weight: 650;
-  margin-bottom: 10px;
-}
-
-.about-body {
-  color: var(--text-2);
-  font-size: 14.5px;
-  max-width: 80ch;
 }
 
 .point-list {
@@ -689,6 +829,29 @@ html.dark .icon-moon {
 
 .info-item dd a:hover {
   text-decoration: underline;
+}
+
+/* 源码仓库：GitHub 官方图标 */
+.info-item dd a.github-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  color: var(--text-2);
+  transition: color 0.18s var(--ease), background-color 0.18s var(--ease);
+}
+
+.info-item dd a.github-link:hover {
+  color: var(--primary);
+  background: var(--primary-soft);
+  text-decoration: none;
+}
+
+.github-link svg {
+  width: 20px;
+  height: 20px;
 }
 
 .badge {
@@ -828,8 +991,12 @@ html.dark .icon-moon {
     flex-basis: 100%;
   }
 
-  .site-search select {
+  .scope {
     flex: 1 1 auto;
+  }
+
+  .scope-trigger {
+    width: 100%;
   }
 }
 

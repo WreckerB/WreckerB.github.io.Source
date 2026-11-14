@@ -31,11 +31,10 @@ export default defineNuxtConfig({
       ],
       script: [
         {
-          // 首屏前置执行：在样式生效前决定明暗，避免主题闪烁
+          // 首屏前置执行：在样式生效前读取本地主题偏好，避免主题闪烁
           innerHTML:
-            "(function(){try{var c=document.cookie.match(/(?:^|;\\s*)wrecker-theme=([^;]+)/);" +
-            "var t=c?decodeURIComponent(c[1]):null;" +
-            "var d=t==='dark'||((!t)&&window.matchMedia('(prefers-color-scheme: dark)').matches);" +
+            "(function(){try{var t=null;try{t=localStorage.getItem('wrecker-theme')}catch(e){}" +
+            "var d=t==='dark'||(t!=='light'&&window.matchMedia('(prefers-color-scheme: dark)').matches);" +
             "document.documentElement.classList.toggle('dark',d);" +
             "document.documentElement.style.colorScheme=d?'dark':'light';}catch(e){}})()",
           tagPosition: 'head'
