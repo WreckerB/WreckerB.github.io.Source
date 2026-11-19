@@ -1,65 +1,3 @@
-<script setup lang="ts">
-import type { Site } from '~/utils/sites'
-
-const props = defineProps<{ site: Site }>()
-
-const { t } = useI18n()
-
-const keyword = ref('')
-const scope = ref(props.site.search?.options?.[0]?.value ?? '')
-const inputEl = ref<HTMLInputElement | null>(null)
-/** 在线 favicon 加载失败时改用文字徽章 */
-const faviconBroken = ref(false)
-
-const scopeOpen = ref(false)
-const scopeEl = ref<HTMLElement | null>(null)
-
-const desc = computed(() => t(props.site.descKey))
-
-const scopeLabel = computed(() => {
-  const current = props.site.search?.options?.find(option => option.value === scope.value)
-  return current ? t(current.labelKey) : ''
-})
-
-function selectScope(value: string) {
-  scope.value = value
-  scopeOpen.value = false
-}
-
-function onDocumentClick(event: MouseEvent) {
-  if (scopeOpen.value && scopeEl.value && !scopeEl.value.contains(event.target as Node)) {
-    scopeOpen.value = false
-  }
-}
-
-onMounted(() => document.addEventListener('click', onDocumentClick))
-onBeforeUnmount(() => document.removeEventListener('click', onDocumentClick))
-
-/** 在线 favicon：统一来源，HTTP/2 下可复用同一条连接 */
-const faviconUrl = computed(() => {
-  if (props.site.useFavicon === false) return ''
-  try {
-    return `https://favicon.im/${new URL(props.site.url).host}`
-  } catch {
-    return ''
-  }
-})
-
-/** 文字徽章内容：站点名首字符 */
-const badgeText = computed(() => props.site.name.trim().charAt(0).toUpperCase())
-
-function onSubmit() {
-  const build = props.site.search?.build
-  if (!build) return
-  const kw = keyword.value.trim()
-  if (!kw) {
-    inputEl.value?.focus()
-    return
-  }
-  window.open(build(kw, scope.value), '_blank', 'noopener,noreferrer')
-}
-</script>
-
 <template>
   <article class="site-card">
     <div class="site-card-top">
@@ -152,3 +90,65 @@ function onSubmit() {
     </a>
   </article>
 </template>
+
+<script setup lang="ts">
+import type { Site } from '~/utils/sites'
+
+const props = defineProps<{ site: Site }>()
+
+const { t } = useI18n()
+
+const keyword = ref('')
+const scope = ref(props.site.search?.options?.[0]?.value ?? '')
+const inputEl = ref<HTMLInputElement | null>(null)
+/** 在线 favicon 加载失败时改用文字徽章 */
+const faviconBroken = ref(false)
+
+const scopeOpen = ref(false)
+const scopeEl = ref<HTMLElement | null>(null)
+
+const desc = computed(() => t(props.site.descKey))
+
+const scopeLabel = computed(() => {
+  const current = props.site.search?.options?.find(option => option.value === scope.value)
+  return current ? t(current.labelKey) : ''
+})
+
+const selectScope = (value: string) => {
+  scope.value = value
+  scopeOpen.value = false
+}
+
+const onDocumentClick = (event: MouseEvent) => {
+  if (scopeOpen.value && scopeEl.value && !scopeEl.value.contains(event.target as Node)) {
+    scopeOpen.value = false
+  }
+}
+
+onMounted(() => document.addEventListener('click', onDocumentClick))
+onBeforeUnmount(() => document.removeEventListener('click', onDocumentClick))
+
+/** 在线 favicon：统一来源，HTTP/2 下可复用同一条连接 */
+const faviconUrl = computed(() => {
+  if (props.site.useFavicon === false) return ''
+  try {
+    return `https://favicon.im/${new URL(props.site.url).host}`
+  } catch {
+    return ''
+  }
+})
+
+/** 文字徽章内容：站点名首字符 */
+const badgeText = computed(() => props.site.name.trim().charAt(0).toUpperCase())
+
+const onSubmit = () => {
+  const build = props.site.search?.build
+  if (!build) return
+  const kw = keyword.value.trim()
+  if (!kw) {
+    inputEl.value?.focus()
+    return
+  }
+  window.open(build(kw, scope.value), '_blank', 'noopener,noreferrer')
+}
+</script>

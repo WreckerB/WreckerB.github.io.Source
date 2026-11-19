@@ -1,50 +1,3 @@
-<script setup lang="ts">
-import type { LangParam, LocaleCode } from '~/composables/useI18n'
-import { saveLangPref } from '~/composables/useI18n'
-import type { ThemeMode } from '~/composables/useTheme'
-
-const { t, locale, localeOptions, setLocale } = useI18n()
-const { mode, setMode } = useTheme()
-
-const open = ref(false)
-const root = ref<HTMLElement | null>(null)
-
-const themeOptions: { value: ThemeMode; labelKey: string }[] = [
-  { value: 'auto', labelKey: 'settings.auto' },
-  { value: 'light', labelKey: 'settings.light' },
-  { value: 'dark', labelKey: 'settings.dark' }
-]
-
-function togglePanel() {
-  open.value = !open.value
-}
-
-function selectLanguage(param: LangParam, code: LocaleCode) {
-  saveLangPref(param)
-  if (code !== locale.value) setLocale(code)
-}
-
-function onDocumentClick(event: MouseEvent) {
-  if (open.value && root.value && !root.value.contains(event.target as Node)) {
-    open.value = false
-  }
-}
-
-function onKeydown(event: KeyboardEvent) {
-  if (event.key === 'Escape') open.value = false
-}
-
-onMounted(() => {
-  document.addEventListener('click', onDocumentClick)
-  document.addEventListener('keydown', onKeydown)
-})
-
-onBeforeUnmount(() => {
-  document.removeEventListener('click', onDocumentClick)
-  document.removeEventListener('keydown', onKeydown)
-})
-</script>
-
 <template>
   <div ref="root" class="settings">
     <button
@@ -97,3 +50,50 @@ onBeforeUnmount(() => {
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import type { LangParam, LocaleCode } from '~/composables/useI18n'
+import { saveLangPref } from '~/composables/useI18n'
+import type { ThemeMode } from '~/composables/useTheme'
+
+const { t, locale, localeOptions, setLocale } = useI18n()
+const { mode, setMode } = useTheme()
+
+const open = ref(false)
+const root = ref<HTMLElement | null>(null)
+
+const themeOptions: { value: ThemeMode; labelKey: string }[] = [
+  { value: 'auto', labelKey: 'settings.auto' },
+  { value: 'light', labelKey: 'settings.light' },
+  { value: 'dark', labelKey: 'settings.dark' }
+]
+
+const togglePanel = () => {
+  open.value = !open.value
+}
+
+const selectLanguage = (param: LangParam, code: LocaleCode) => {
+  saveLangPref(param)
+  if (code !== locale.value) setLocale(code)
+}
+
+const onDocumentClick = (event: MouseEvent) => {
+  if (open.value && root.value && !root.value.contains(event.target as Node)) {
+    open.value = false
+  }
+}
+
+const onKeydown = (event: KeyboardEvent) => {
+  if (event.key === 'Escape') open.value = false
+}
+
+onMounted(() => {
+  document.addEventListener('click', onDocumentClick)
+  document.addEventListener('keydown', onKeydown)
+})
+
+onBeforeUnmount(() => {
+  document.removeEventListener('click', onDocumentClick)
+  document.removeEventListener('keydown', onKeydown)
+})
+</script>

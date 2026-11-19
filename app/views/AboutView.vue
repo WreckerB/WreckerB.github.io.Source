@@ -1,32 +1,3 @@
-<script setup lang="ts">
-const { t, locale, localePath } = useI18n()
-const config = useRuntimeConfig()
-
-useHead(() => ({ title: `${t('pages.about.title')} · ${t('site.title')}` }))
-
-const navCards = [
-  { path: '/galgame', titleKey: 'pages.galgame.title', descKey: 'pages.galgame.subtitle' },
-  { path: '/pillow', titleKey: 'pages.pillow.title', descKey: 'pages.pillow.subtitle' }
-]
-
-const points = ['about.hero.point1', 'about.hero.point2', 'about.hero.point3']
-
-// 构建时间由服务端生成（UTC），挂载后按访问者设备时区与语言换算展示
-const buildTime = ref('')
-function formatBuildTime() {
-  buildTime.value = new Date(config.public.buildTime).toLocaleString(locale.value, {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-    timeZoneName: 'short'
-  })
-}
-onMounted(formatBuildTime)
-watch(locale, formatBuildTime)
-</script>
-
 <template>
   <div>
     <section class="hero">
@@ -112,3 +83,32 @@ watch(locale, formatBuildTime)
     </section>
   </div>
 </template>
+
+<script setup lang="ts">
+const { t, locale, localePath } = useI18n()
+const config = useRuntimeConfig()
+
+useHead(() => ({ title: `${t('pages.about.title')} · ${t('site.title')}` }))
+
+const navCards = [
+  { path: '/galgame', titleKey: 'pages.galgame.title', descKey: 'pages.galgame.subtitle' },
+  { path: '/pillow', titleKey: 'pages.pillow.title', descKey: 'pages.pillow.subtitle' }
+]
+
+const points = ['about.hero.point1', 'about.hero.point2', 'about.hero.point3']
+
+// 构建时间由服务端生成（UTC），挂载后按访问者设备时区与语言换算展示
+const buildTime = ref('')
+const formatBuildTime = () => {
+  buildTime.value = new Date(config.public.buildTime).toLocaleString(locale.value, {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    timeZoneName: 'short'
+  })
+}
+onMounted(formatBuildTime)
+watch(locale, formatBuildTime)
+</script>

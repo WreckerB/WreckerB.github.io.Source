@@ -1,13 +1,3 @@
-<script setup lang="ts">
-const { t, localePath } = useI18n()
-
-const navItems = [
-  { path: '/', labelKey: 'nav.about' },
-  { path: '/galgame', labelKey: 'nav.galgame' },
-  { path: '/pillow', labelKey: 'nav.pillow' }
-]
-</script>
-
 <template>
   <header class="site-header">
     <div class="container header-inner">
@@ -36,3 +26,13 @@ const navItems = [
     </div>
   </header>
 </template>
+
+<script setup lang="ts">
+const { t, localePath } = useI18n()
+
+const navItems = [
+  { path: '/', labelKey: 'nav.about' },
+  { path: '/galgame', labelKey: 'nav.galgame' },
+  { path: '/pillow', labelKey: 'nav.pillow' }
+]
+</script>

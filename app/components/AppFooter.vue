@@ -1,8 +1,3 @@
-<script setup lang="ts">
-const { t } = useI18n()
-const year = new Date().getFullYear()
-</script>
-
 <template>
   <footer class="site-footer">
     <div class="container footer-inner">
@@ -14,3 +9,8 @@ const year = new Date().getFullYear()
     </div>
   </footer>
 </template>
+
+<script setup lang="ts">
+const { t } = useI18n()
+const year = new Date().getFullYear()
+</script>

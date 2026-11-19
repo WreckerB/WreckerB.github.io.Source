@@ -1,11 +1,3 @@
-<script setup lang="ts">
-import { shopSites, toolSites, infoSites } from '~/utils/sites'
-
-const { t } = useI18n()
-
-useHead(() => ({ title: `${t('pages.galgame.title')} · ${t('site.title')}` }))
-</script>
-
 <template>
   <div>
     <div class="page-head">
@@ -18,3 +10,11 @@ useHead(() => ({ title: `${t('pages.galgame.title')} · ${t('site.title')}` }))
     <SiteSection anchor-id="info" title-key="sections.info.title" desc-key="sections.info.desc" :sites="infoSites" />
   </div>
 </template>
+
+<script setup lang="ts">
+import { shopSites, toolSites, infoSites } from '~/utils/sites'
+
+const { t } = useI18n()
+
+useHead(() => ({ title: `${t('pages.galgame.title')} · ${t('site.title')}` }))
+</script>

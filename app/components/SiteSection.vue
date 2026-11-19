@@ -1,19 +1,3 @@
-<script setup lang="ts">
-import type { Site } from '~/utils/sites'
-
-defineProps<{
-  /** 区块锚点，分享链接带 #anchorId 可直接定位到该区块 */
-  anchorId: string
-  /** 区块标题的 i18n key */
-  titleKey: string
-  /** 区块简介的 i18n key */
-  descKey?: string
-  sites: Site[]
-}>()
-
-const { t } = useI18n()
-</script>
-
 <template>
   <section :id="anchorId" class="section">
     <div class="section-head">
@@ -30,3 +14,19 @@ const { t } = useI18n()
     </div>
   </section>
 </template>
+
+<script setup lang="ts">
+import type { Site } from '~/utils/sites'
+
+defineProps<{
+  /** 区块锚点，分享链接带 #anchorId 可直接定位到该区块 */
+  anchorId: string
+  /** 区块标题的 i18n key */
+  titleKey: string
+  /** 区块简介的 i18n key */
+  descKey?: string
+  sites: Site[]
+}>()
+
+const { t } = useI18n()
+</script>
