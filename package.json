@@ -14,16 +14,20 @@
     "typecheck": "nuxt typecheck"
   },
   "dependencies": {
+    "element-plus": "^2.14.8",
     "nuxt": "~4.5.0",
     "vue": "^3.5.0",
     "vue-router": "^5.2.0"
   },
   "devDependencies": {
+    "@element-plus/nuxt": "^1.1.5",
     "@types/node": "^22.10.0",
     "typescript": "^5.6.0",
     "vue-tsc": "^3.0.0"
   },
   "pnpm": {
-    "onlyBuiltDependencies": ["esbuild"]
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
   }
 }

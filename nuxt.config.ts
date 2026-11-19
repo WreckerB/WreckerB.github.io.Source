@@ -6,6 +6,15 @@ const baseURL = process.env.NUXT_APP_BASE_URL || '/'
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
 
+  modules: ['@element-plus/nuxt'],
+
+  elementPlus: {
+    importStyle: 'css',
+    themes: ['dark'],
+    defaultLocale: 'zh-cn',
+    installMethods: ['ElLoading', 'ElMessage', 'ElMessageBox', 'ElNotification']
+  },
+
   devtools: { enabled: false },
 
   // 关闭 Nuxt 内置实验特性与遥测，保持最简

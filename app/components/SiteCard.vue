@@ -2,7 +2,6 @@
   <article class="site-card">
     <div class="site-card-top">
       <a
-        v-if="faviconUrl && !faviconBroken"
         class="site-icon-link"
         :href="site.url"
         target="_blank"
@@ -10,26 +9,26 @@
         :title="site.name"
         :aria-label="site.name"
       >
-        <img
-          class="site-favicon"
-          :src="faviconUrl"
-          alt=""
-          width="48"
-          height="48"
-          loading="lazy"
-          decoding="async"
-          referrerpolicy="no-referrer"
-          @error="faviconBroken = true"
-        />
+        <span v-if="faviconFailed" class="site-badge">{{ badgeText }}</span>
+        <template v-else>
+          <img
+            ref="faviconEl"
+            class="site-favicon"
+            :class="{ 'is-loading': faviconLoading }"
+            :src="faviconUrl"
+            alt=""
+            width="48"
+            height="48"
+            decoding="async"
+            referrerpolicy="no-referrer"
+            @load="onFaviconLoad"
+            @error="onFaviconError"
+          />
+          <span v-if="faviconLoading" class="site-favicon-placeholder" aria-hidden="true">
+            <span class="site-favicon-spinner"></span>
+          </span>
+        </template>
       </a>
-      <a
-        v-else
-        class="site-icon-link site-badge"
-        :href="site.url"
-        target="_blank"
-        rel="noopener noreferrer"
-        :title="site.name"
-      >{{ badgeText }}</a>
 
       <div class="site-meta">
         <h3 class="site-name">{{ site.name }}</h3>
@@ -38,34 +37,19 @@
     </div>
 
     <form v-if="site.search" class="site-search" @submit.prevent="onSubmit">
-      <div v-if="site.search.options" ref="scopeEl" class="scope" @keydown.esc="scopeOpen = false">
-        <button
-          type="button"
-          class="scope-trigger"
-          :aria-expanded="scopeOpen"
-          aria-haspopup="listbox"
-          @click="scopeOpen = !scopeOpen"
-        >
-          {{ scopeLabel }}
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="6 9 12 15 18 9" />
-          </svg>
-        </button>
-        <ul v-if="scopeOpen" class="scope-menu" role="listbox">
-          <li v-for="opt in site.search.options" :key="opt.value">
-            <button
-              type="button"
-              class="scope-option"
-              :class="{ 'is-active': opt.value === scope }"
-              role="option"
-              :aria-selected="opt.value === scope"
-              @click="selectScope(opt.value)"
-            >
-              {{ t(opt.labelKey) }}
-            </button>
-          </li>
-        </ul>
-      </div>
+      <el-select
+        v-if="site.search.options"
+        v-model="scope"
+        class="scope-select"
+        :aria-label="t('common.scope')"
+      >
+        <el-option
+          v-for="opt in site.search.options"
+          :key="opt.value"
+          :label="t(opt.labelKey)"
+          :value="opt.value"
+        />
+      </el-select>
       <input
         ref="inputEl"
         v-model="keyword"
@@ -101,42 +85,51 @@ const { t } = useI18n()
 const keyword = ref('')
 const scope = ref(props.site.search?.options?.[0]?.value ?? '')
 const inputEl = ref<HTMLInputElement | null>(null)
-/** 在线 favicon 加载失败时改用文字徽章 */
-const faviconBroken = ref(false)
+const faviconEl = ref<HTMLImageElement | null>(null)
 
-const scopeOpen = ref(false)
-const scopeEl = ref<HTMLElement | null>(null)
+/** favicon 状态：loading 空白占位 → loaded 在线图标 / failed 首字母徽章 */
+const faviconState = ref<'loading' | 'loaded' | 'failed'>('loading')
+const faviconLoading = computed(() => faviconState.value === 'loading')
+const faviconLoaded = computed(() => faviconState.value === 'loaded')
+const faviconFailed = computed(() => faviconState.value === 'failed')
 
 const desc = computed(() => t(props.site.descKey))
 
-const scopeLabel = computed(() => {
-  const current = props.site.search?.options?.find(option => option.value === scope.value)
-  return current ? t(current.labelKey) : ''
-})
-
-const selectScope = (value: string) => {
-  scope.value = value
-  scopeOpen.value = false
-}
-
-const onDocumentClick = (event: MouseEvent) => {
-  if (scopeOpen.value && scopeEl.value && !scopeEl.value.contains(event.target as Node)) {
-    scopeOpen.value = false
-  }
-}
-
-onMounted(() => document.addEventListener('click', onDocumentClick))
-onBeforeUnmount(() => document.removeEventListener('click', onDocumentClick))
-
-/** 在线 favicon：统一来源，HTTP/2 下可复用同一条连接 */
+/** 在线 favicon：统一来源；无图标时返回 404 以触发 @error 回退首字母徽章 */
 const faviconUrl = computed(() => {
-  if (props.site.useFavicon === false) return ''
   try {
-    return `https://favicon.im/${new URL(props.site.url).host}`
+    return `https://favicon.im/${new URL(props.site.url).host}?throw-error-on-404=true`
   } catch {
     return ''
   }
 })
+
+/** 5s 内仍未拿到在线图标则回退到首字母徽章 */
+let faviconTimer: ReturnType<typeof setTimeout> | undefined
+onMounted(() => {
+  const img = faviconEl.value
+  // SSR 下图片可能在 hydration 前就完成/失败，@load 与 @error 事件会丢失，这里兜底判断
+  if (img?.complete) {
+    faviconState.value = img.naturalWidth > 0 ? 'loaded' : 'failed'
+    return
+  }
+  faviconTimer = setTimeout(() => {
+    if (faviconState.value === 'loading') faviconState.value = 'failed'
+  }, 5000)
+})
+onBeforeUnmount(() => {
+  if (faviconTimer) clearTimeout(faviconTimer)
+})
+
+const onFaviconLoad = () => {
+  if (faviconTimer) clearTimeout(faviconTimer)
+  faviconState.value = 'loaded'
+}
+
+const onFaviconError = () => {
+  if (faviconTimer) clearTimeout(faviconTimer)
+  faviconState.value = 'failed'
+}
 
 /** 文字徽章内容：站点名首字符 */
 const badgeText = computed(() => props.site.name.trim().charAt(0).toUpperCase())

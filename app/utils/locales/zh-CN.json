@@ -11,9 +11,10 @@
   },
   "common": {
     "search": "搜索",
-    "placeholder": "输入关键词后回车",
+    "placeholder": "请输入关键词",
     "visit": "访问",
     "empty": "暂无内容",
+    "scope": "检索范围",
     "count": "共 {n} 个站点",
     "anchor": "锚点链接"
   },

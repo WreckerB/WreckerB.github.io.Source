@@ -51,7 +51,7 @@
         <dl class="info-grid">
           <div class="info-item">
             <dt>{{ t('about.info.version') }}</dt>
-            <dd><span class="badge">{{ config.public.version }}</span></dd>
+            <dd><el-tag type="primary" effect="light" round>{{ config.public.version }}</el-tag></dd>
           </div>
           <div class="info-item">
             <dt>{{ t('about.info.buildTime') }}</dt>
@@ -59,7 +59,13 @@
           </div>
           <div class="info-item">
             <dt>{{ t('about.info.stack') }}</dt>
-            <dd>Nuxt 4 · Vue 3 · 原生 CSS</dd>
+            <dd>
+              <a href="https://nuxt.com/" target="_blank" rel="noopener noreferrer">Nuxt 4</a>
+              <span aria-hidden="true"> · </span>
+              <a href="https://vuejs.org/" target="_blank" rel="noopener noreferrer">Vue 3</a>
+              <span aria-hidden="true"> · </span>
+              原生 CSS
+            </dd>
           </div>
           <div class="info-item">
             <dt>{{ t('about.info.source') }}</dt>

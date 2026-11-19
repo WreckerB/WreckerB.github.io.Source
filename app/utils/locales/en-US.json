@@ -11,9 +11,10 @@
   },
   "common": {
     "search": "Search",
-    "placeholder": "Type a keyword and press Enter",
+    "placeholder": "Please enter a keyword",
     "visit": "Visit",
     "empty": "Nothing here yet",
+    "scope": "Search scope",
     "count": "{n} sites",
     "anchor": "Anchor link"
   },

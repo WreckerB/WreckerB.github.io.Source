@@ -23,12 +23,6 @@ export interface Site {
   category: SiteCategory
   /** 站点简介的 i18n key，见 locales/*.json 的 sites 段 */
   descKey: string
-  /**
-   * 是否有可用的在线 favicon（默认 true）。
-   * 设为 false 的站点本身没有 favicon，favicon.im 只会返回灰色占位图，
-   * 这类站点改用首字母文字徽章。
-   */
-  useFavicon?: boolean
   search?: SiteSearch
 }
 
@@ -129,7 +123,6 @@ export const shopSites: Site[] = [
     url: 'http://www.chuko-tsuhan.com',
     category: 'shop',
     descKey: 'sites.chuko-tsuhan.desc',
-    useFavicon: false,
     search: {
       options: [{ value: 'global', labelKey: 'scopes.global' }],
       // 该站点只接受 EUC-JP 编码的检索词
@@ -142,7 +135,6 @@ export const shopSites: Site[] = [
     url: 'https://shop.lashinbang.com',
     category: 'shop',
     descKey: 'sites.lashinbang.desc',
-    useFavicon: false,
     search: {
       options: [
         { value: 'global', labelKey: 'scopes.global' },
@@ -185,8 +177,7 @@ export const toolSites: Site[] = [
     name: 'EroLocate',
     url: 'https://erocate.com',
     category: 'tool',
-    descKey: 'sites.erocate.desc',
-    useFavicon: false
+    descKey: 'sites.erocate.desc'
   },
   {
     id: 'keepa',
@@ -215,8 +206,7 @@ export const infoSites: Site[] = [
     name: 'ErogameScape',
     url: 'https://153.127.88.54/~ap2/ero/toukei_kaiseki/',
     category: 'info',
-    descKey: 'sites.erogamescape.desc',
-    useFavicon: false
+    descKey: 'sites.erogamescape.desc'
   },
   {
     id: 'vndb',

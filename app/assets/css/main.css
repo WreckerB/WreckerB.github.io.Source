@@ -1,6 +1,6 @@
 /* ==========================================================================
    WreckerB — 全局样式
-   仅使用原生 CSS 变量 + 媒体查询，无任何 UI 框架依赖
+   自有样式使用原生 CSS 变量 + 媒体查询；组件库样式由 Element Plus 提供
    ========================================================================== */
 
 /* ---------- 设计令牌 ---------- */
@@ -48,6 +48,32 @@ html.dark {
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
   --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.45);
   --shadow-lg: 0 18px 48px rgba(0, 0, 0, 0.55);
+}
+
+/* ---------- Element Plus 主题对齐 ---------- */
+/* 组件库主色、字体与圆角跟随项目设计令牌；!important 确保覆盖模块注入的默认样式 */
+:root {
+  --el-color-primary: var(--primary) !important;
+  --el-color-primary-light-3: #9980ff !important;
+  --el-color-primary-light-5: #b6a4ff !important;
+  --el-color-primary-light-7: #d3c9ff !important;
+  --el-color-primary-light-8: #e2dbff !important;
+  --el-color-primary-light-9: #f0edff !important;
+  --el-color-primary-dark-2: #573bcc !important;
+  --el-font-family: system-ui, -apple-system, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',
+    'Noto Sans SC', sans-serif !important;
+  --el-border-radius-base: var(--radius-sm) !important;
+  --el-border-radius-round: 999px !important;
+}
+
+html.dark {
+  --el-color-primary: var(--primary) !important;
+  --el-color-primary-light-3: #b9aaff !important;
+  --el-color-primary-light-5: #cdc2ff !important;
+  --el-color-primary-light-7: #e1daff !important;
+  --el-color-primary-light-8: #ebe7ff !important;
+  --el-color-primary-light-9: #f5f3ff !important;
+  --el-color-primary-dark-2: #7c6acc !important;
 }
 
 /* ---------- 基础重置 ---------- */
@@ -447,6 +473,7 @@ select {
 
 /* 图标可点击，跳转站点主站 */
 .site-icon-link {
+  position: relative;
   flex-shrink: 0;
   display: inline-flex;
   border-radius: 12px;
@@ -464,6 +491,41 @@ select {
   border-radius: 12px;
   background: #ffffff;
   object-fit: contain;
+}
+
+/* 加载中隐藏图片本体（保留在 DOM 中以触发加载），由占位层覆盖 */
+.site-favicon.is-loading {
+  opacity: 0;
+}
+
+/* 在线图标加载中的空白占位：与 favicon 同尺寸，叠加旋转指示器 */
+.site-favicon-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface-2);
+}
+
+.site-favicon-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--border-strong);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: favicon-spin 0.7s linear infinite;
+}
+
+@keyframes favicon-spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* 无 favicon 的站点用首字母文字徽章 */
@@ -509,85 +571,37 @@ select {
   margin-top: auto;
 }
 
-/* 检索范围下拉：自绘菜单，保持与卡片一致的视觉 */
-.scope {
-  position: relative;
+/* 检索范围下拉：Element Plus Select，与主视觉对齐 */
+/* 用双类选择器覆盖 Element Plus 的 .el-select { width: 100% } */
+.scope-select.el-select {
   flex: 0 0 auto;
+  width: 108px;
 }
 
-.scope-trigger {
-  display: inline-flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 6px;
-  height: 36px;
+/* 中文文案仅两字，按 html lang 进一步收紧；英文保留足够宽度避免长选项截断 */
+html[lang^='zh'] .scope-select.el-select {
+  width: 72px;
+}
+
+.scope-select .el-select__wrapper {
+  min-height: 36px;
   padding: 0 10px;
-  border: 1px solid var(--border);
   border-radius: var(--radius-sm);
-  background: var(--surface-2);
-  color: var(--text-2);
+  background-color: var(--surface-2);
+  box-shadow: 0 0 0 1px var(--border) inset;
   font-size: 13px;
-  white-space: nowrap;
-  cursor: pointer;
-  transition: border-color 0.18s var(--ease), color 0.18s var(--ease), background-color 0.18s var(--ease);
 }
 
-.scope-trigger:hover,
-.scope-trigger[aria-expanded='true'] {
-  border-color: var(--primary);
+/* 下拉箭头用主题色并放大，提升辨识度（SVG 为 fill 填充，靠颜色与尺寸增强） */
+.scope-select .el-select__caret {
   color: var(--primary);
-  background: var(--primary-soft);
+  font-size: 16px;
 }
 
-.scope-trigger svg {
-  flex-shrink: 0;
-  width: 14px;
-  height: 14px;
-  transition: transform 0.18s var(--ease);
-}
-
-.scope-trigger[aria-expanded='true'] svg {
-  transform: rotate(180deg);
-}
-
-.scope-menu {
-  position: absolute;
-  top: calc(100% + 6px);
-  left: 0;
-  z-index: 20;
-  min-width: 100%;
-  margin: 0;
-  padding: 4px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  box-shadow: var(--shadow-md);
-}
-
-.scope-option {
-  display: block;
-  width: 100%;
-  padding: 6px 10px;
-  border: none;
+/* 下拉浮层由 Element Plus 管理，这里只统一圆角与字体 */
+.el-select-dropdown__item {
   border-radius: 6px;
-  background: none;
-  color: var(--text-2);
   font-size: 13px;
-  text-align: left;
-  white-space: nowrap;
-  cursor: pointer;
-  transition: background-color 0.15s var(--ease), color 0.15s var(--ease);
-}
-
-.scope-option:hover {
-  background: var(--primary-soft);
-  color: var(--text);
-}
-
-.scope-option.is-active {
-  background: var(--primary-soft);
-  color: var(--primary);
-  font-weight: 600;
 }
 
 .site-search input {
@@ -892,6 +906,49 @@ select {
   margin-left: auto;
 }
 
+/* ---------- 错误页（404 等） ---------- */
+.error-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 24px;
+}
+
+.error-card {
+  max-width: 460px;
+  text-align: center;
+}
+
+.error-code {
+  display: block;
+  font-size: clamp(80px, 18vw, 132px);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.error-title {
+  margin-top: 18px;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.error-desc {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.error-home {
+  margin-top: 24px;
+}
+
 /* ---------- 移动端适配 ---------- */
 @media (max-width: 900px) {
   .grid {
@@ -985,18 +1042,15 @@ select {
     flex-wrap: wrap;
   }
 
-  .site-search input {
+  .site-search > input {
     order: -1;
     width: 100%;
     flex-basis: 100%;
   }
 
-  .scope {
+  html[lang] .scope-select.el-select {
     flex: 1 1 auto;
-  }
-
-  .scope-trigger {
-    width: 100%;
+    width: auto;
   }
 }
 
